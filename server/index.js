@@ -4,6 +4,7 @@ var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
 var path = require('path');
 var ParseDashboard = require('parse-dashboard');
+const { parseJSON } = require('leancloud-storage');
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 var serverURL = process.env.SERVER_URL || 'http://localhost:1337/parse';
@@ -17,6 +18,7 @@ var api = new ParseServer({
     cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
     appId: process.env.APP_ID || 'myAppId',
     javascriptKey: process.env.CLIENT_KEY || '',
+    restAPIKey: process.env.REST_API_KEY,
     masterKey: process.env.MASTER_KEY || '', //master key ，打死也不要告诉别人！
     serverURL: serverURL, // 如果使用https不要忘了修改它
     customPages: 'parseFrameURL',
@@ -28,8 +30,14 @@ var api = new ParseServer({
         options: {
             'filesSubDirectory': ''
         }
-    }, // 启用邮箱验证
-    verifyUserEmails: true,
+    },
+    allowHeaders: '*',
+    allowOrigin: 'http://localhost:5173',
+    exponseHeaders: '*',
+    // 禁止客户端在云端创建新 class 表
+    allowClientClassCreation: false,
+    // 启用邮箱验证
+    verifyUserEmails: false,
 
     // 如果 `verifyUserEmails` 为 `true` 并且
     // 如果 `emailVerifyTokenValidityDuration` 为 `undefined` 那么
@@ -64,7 +72,6 @@ var api = new ParseServer({
 });
 
 var app = express();
-
 // 静态资源目录
 app.use('/public', express.static(path.join(__dirname, '/public')));
 

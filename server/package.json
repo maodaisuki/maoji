@@ -21,7 +21,7 @@
     "parse-zh-email-adapter": "^1.0.1"
   },
   "scripts": {
-    "start": "cross-env APP_ID='myAppId' CLIENT_KEY='123456' MASTER_KEY='123456' DATABASE_URI=mongodb://localhost:27017/maoji PARSE_MOUNT=/api  PORT=2018 SERVER_URL=http://localhost:2018/api node index.js"
+    "start": "cross-env APP_ID='myAppId' CLIENT_KEY='123456' REST_API_KEY='123456' MASTER_KEY='123456' DATABASE_URI=mongodb://localhost:27017/maoji PARSE_MOUNT=/api  PORT=2018 SERVER_URL=http://localhost:2018/api node index.js"
   },
   "engines": {
     "node": ">=7.6"
