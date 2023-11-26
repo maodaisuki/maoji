@@ -53,12 +53,12 @@ const router = createRouter({
       component: UserProfilePage,
       beforeEnter: async (to, from, next) => {
         // 检查服务器是否存在该用户数据
-        // if (await isUserExist(to.params.username)) {
-        //   next();
-        // }
-        // else {
-        //   next('/404');
-        // }
+        if (await isUserExist(to.params.username)) {
+          next();
+        }
+        else {
+          next('/404');
+        }
         next();
       },
       props: true

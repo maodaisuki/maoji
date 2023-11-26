@@ -6,17 +6,17 @@ Parse.Cloud.define('hello', req => {
   return "云函数测试成功";
 });
 
-Parse.Cloud.define("publicUserData", async (request) => {
+Parse.Cloud.define("isUserExist", async (request) => {
   const username = request.params.username;
   const query = new Parse.Query("_User");
   query.equalTo("username", username);
   query.select(["username", "avatar"]);
 
-  const result = await query.find({ useMasterKey: true });
+  const result = await query.find();
 
   if (result) {
     return true
   } else {
-    throw new Error("User not found");
+    return false;
   }
 });
