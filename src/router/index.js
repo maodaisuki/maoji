@@ -8,7 +8,16 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'root',
+      redirect: '/home',
+      meta: {
+        needLogin: true
+      },
+      component: HomePage
+    },
+    {
+      path: '/home',
+      name: 'homePage',
       meta: {
         needLogin: true
       },

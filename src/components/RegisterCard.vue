@@ -2,13 +2,13 @@
 <template>
     <div class="registerCard" :style="{ display: 'flex' }">
         <a-card title="注册 | Maoji">
-            <a-form :model="registerForm" auto-label-width>
-                <a-form-item field="name" label="用户名">
+            <a-form :model="registerForm" auto-label-width @submit-success="signUp(registerForm.username, registerForm.password)">
+                <a-form-item field="username" label="用户名" :rules="usernameRule">
                     <a-input
                         v-model="registerForm.username" placeholder="输入用户名..." type="text"
                     />
                 </a-form-item>
-                <a-form-item field="password" label="密码">
+                <a-form-item field="password" label="密码" :rules="passwordRule">
                     <a-input type="password" v-model="registerForm.password" placeholder="输入密码..." />
                 </a-form-item>
                 <!-- 邮箱验证，可用于找回账号 -->
@@ -21,7 +21,7 @@
                 </a-form-item> -->
                 <a-form-item>
                     <a-col :span="5">
-                        <a-button type="primary" v-on:click="signUp(registerForm.username, registerForm.password)">登录</a-button>
+                        <a-button type="primary" html-type="submit">注册</a-button>
                     </a-col>
                     <a-col :span="1">
                         <div> </div>
@@ -30,7 +30,7 @@
                         <div class="register-info">
                             <span style="width: 100%;">
                                 <div>
-                                    <div  style="display: inline-block;">
+                                    <div style="display: inline-block;">
                                         已有账号？前往
                                     </div>
                                     <div class="register-btn" v-on:click="this.$router.push({path:'/login'})">登录</div>
@@ -55,13 +55,48 @@ export default {
       isRead: false,
     })
 
+    const usernameRule = [
+        {
+            required: true,
+            message: '用户名为必须项'
+        },
+        {
+            validator: (value, callback) => {
+                if (value.length < 1 || value.length > 20) {
+                    callback('用户名长度必须在 1 到 20 之间');
+                } else if (!/^[a-zA-Z0-9_]+$/.test(value)) {
+                    callback('用户名只能包含字母、数字和下划线');
+                } else {
+                    callback();
+                }
+            },
+        },
+    ]
+    const passwordRule = [
+        {
+            required: true,
+            message: '密码为必须项'
+        }, 
+        {
+            validator: (value, callback) => {
+                if (value.length < 6 || value.length > 20) {
+                    callback('密码长度必须在 6 到 20 之间');
+                } else {
+                    callback();
+                }
+            },
+        },
+    ]
+
     return {
       layout,
       registerForm,
+      usernameRule,
+      passwordRule
     }
   },
   methods: {
-    signUp
+    signUp,
   }
 }
 </script>

@@ -12,6 +12,8 @@ export const loginIn = (async (username, password) => {
   }
   catch(e) {
     // 检查用户
+    alert('用户名或密码错误');
     console.log("登陆失败");
   }
+  return '';
 })

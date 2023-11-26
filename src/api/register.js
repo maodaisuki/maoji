@@ -12,6 +12,8 @@ export const signUp = (async (username, password) => {
   }
   catch(e) {
     // 检查用户
+    alert('注册失败');
     console.log("注册失败");
   }
+  return '';
 })

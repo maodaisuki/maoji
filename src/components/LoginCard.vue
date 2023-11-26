@@ -2,14 +2,14 @@
 <template>
     <div class="loginCard" :style="{ display: 'flex' }">
         <a-card title="登录 | Maoji">
-            <a-form :model="loginForm" auto-label-width>
-                <a-form-item field="name" label="用户名">
+            <a-form ref="formRef" :model="loginForm" auto-label-width @submit-success="loginIn(loginForm.username, loginForm.password)">
+                <a-form-item field="username" label="用户名" :rules="usernameRule">
                     <a-input
                         v-model="loginForm.username" placeholder="输入用户名..."  type="text"
                     />
                 </a-form-item>
-                <a-form-item field="password" label="密码">
-                    <a-input type="password" v-model="loginForm.password" placeholder="输入密码..." />
+                <a-form-item field="password" label="密码" :rules="passwordRule">
+                    <a-input type="password" v-model="loginForm.password" placeholder="输入密码..."/>
                 </a-form-item>
                 <!-- 用户协议 -->
                 <!-- <a-form-item field="isRead">
@@ -17,7 +17,7 @@
                 </a-form-item> -->
                 <a-form-item>
                     <a-col :span="5">
-                        <a-button type="primary" v-on:click="loginIn(loginForm.username, loginForm.password)">登录</a-button>
+                        <a-button type="primary" html-type="submit">登录</a-button>
                     </a-col>
                     <a-col :span="1">
                         <div> </div>
@@ -44,20 +44,36 @@ import { reactive, ref } from 'vue';
 import { loginIn } from '../api/login'
 export default {
   setup() {
+    const formRef = ref();
     const layout = ref('horizontal')
     const loginForm = reactive({
       username: '',
       password: '',
       // isRead: false,
     })
+    const usernameRule = [
+        {
+            required: true,
+            message: '用户名为必须项'
+        }
+    ]
+    const passwordRule = [
+        {
+            required: true,
+            message: '密码为必须项'
+        }
+    ]
 
     return {
       layout,
       loginForm,
+      formRef,
+      usernameRule,
+      passwordRule
     }
   },
   methods: {
-    loginIn
+    loginIn,
   }
 }
 </script>
