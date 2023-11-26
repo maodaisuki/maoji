@@ -27,7 +27,7 @@ router.beforeEach(function(to, from, next) {
             })
         }
     } else {
-        console.log(to.meta.needLogin)
+        // console.log(to.meta.needLogin)
         next();
     }
 })
