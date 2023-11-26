@@ -1,7 +1,7 @@
 <!-- 用户主页 -->
 <!-- 通过本地存储获取 token -->
 <template>
-  Home<router-link :to="{ name: 'UserProfile', params: { username: 'johndoe' } }">John Doe's Profile</router-link>
+  Home<router-link :to="{ name: 'UserProfilePage', params: { username: 'johndoe' } }">John Doe's Profile</router-link>
 </template>
 <script>
 

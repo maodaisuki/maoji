@@ -49,15 +49,17 @@ const router = createRouter({
     // 用户动态路由
     {
       path: '/user/:username',
-      name: 'UserProfile',
+      name: 'UserProfilePage',
       component: UserProfilePage,
       beforeEnter: async (to, from, next) => {
         // 检查服务器是否存在该用户数据
-        if (await isUserExist(to.params.username)) {
-          next();
-        } else {
-          next('/404');
-        }
+        // if (await isUserExist(to.params.username)) {
+        //   next();
+        // }
+        // else {
+        //   next('/404');
+        // }
+        next();
       },
       props: true
     },

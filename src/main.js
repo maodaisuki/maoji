@@ -16,11 +16,11 @@ Parse.serverURL = 'http://localhost:2018/api';
 
 // 判断是否已经登陆跳转页面
 router.beforeEach(async function(to, from, next) {
-    // to: 即将进入的目标
     if(to.meta.needLogin) {
         if(await auth.getUserInfo()) {
             next();
-        } else {
+        } 
+        else {
             // console.log("无 Token 信息")
             next({
                 path: "/login"
