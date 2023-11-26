@@ -15,13 +15,13 @@ Parse.initialize('myAppId', '123456');
 Parse.serverURL = 'http://localhost:2018/api';
 
 // 判断是否已经登陆跳转页面
-router.beforeEach(function(to, from, next) {
+router.beforeEach(async function(to, from, next) {
     // to: 即将进入的目标
     if(to.meta.needLogin) {
-        if(auth.getUserInfo()) {
+        if(await auth.getUserInfo()) {
             next();
         } else {
-            console.log("无 Token 信息")
+            // console.log("无 Token 信息")
             next({
                 path: "/login"
             })
